@@ -1,0 +1,28 @@
+{
+  "name": "provably-fair-rng",
+  "version": "0.0.0",
+  "description": "A provably fair RNG based on a stream cipher",
+  "main": "index.js",
+  "dependencies": {
+    "sodium-universal": "^2.0.0"
+  },
+  "devDependencies": {
+    "standard": "^14.3.1",
+    "tape": "^4.12.1"
+  },
+  "scripts": {
+    "pretest": "standard",
+    "test": "tape test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emilbayes/provably-fair-rng.git"
+  },
+  "keywords": [],
+  "author": "Emil Bay <github@tixz.dk>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emilbayes/provably-fair-rng/issues"
+  },
+  "homepage": "https://github.com/emilbayes/provably-fair-rng#readme"
+}
