@@ -4,6 +4,7 @@
   "description": "A provably fair RNG based on a stream cipher",
   "main": "index.js",
   "dependencies": {
+    "nanoassert": "^2.0.0",
     "sodium-universal": "^2.0.0"
   },
   "devDependencies": {
