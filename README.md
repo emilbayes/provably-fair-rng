@@ -30,7 +30,14 @@ console.log(rng.shuffle(['a', 'b', 'c'])) // Permute a, b, c
 ### `const rng = pfRng(key, nonce)`
 
 Create a new RNG from a `key` and a `nonce`, which must be `pfRng.KEYBYTES` and
-`pfRng.NONCEBYTES` long respectively
+`pfRng.NONCEBYTES` long respectively. Uses `chacha20` as the underlying primitive
+
+Other options include:
+  - `const rng = pfRng.xchacha(key, nonce)`
+  - `const rng = pfRng.salsa(key, nonce)`
+  - `const rng = pfRng.xsalsa(key, nonce)`
+
+Each with associated constants on `pfRng.*.KEYBYTES` and `pfRng.*.NONCEBYTES`
 
 ### `const bytes = rng.bytes`
 

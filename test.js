@@ -8,7 +8,7 @@ const ch = HashChain.generate(seed, 10)
 var rng = require('.')
 
 for (const key of ch) {
-  var n = rng(key, nonce)
+  var n = rng(key, nonce.subarray(0, 8))
 
   console.log(n(10))
   console.log(n.uniform(Number.MAX_SAFE_INTEGER))

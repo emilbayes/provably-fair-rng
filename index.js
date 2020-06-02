@@ -1,12 +1,38 @@
-const sodium = require('sodium-universal')
+const sodium = require('sodium-native')
 const uniform = require('./unbiased-uniform')
 const double = require('./unbiased-double')
 const shuffle = require('./unbiased-shuffle')
 const sample = require('./unbiased-sample')
+const weighted = require('./unbiased-weighted-sample')
+const weightedInteger = require('./unbiased-weighted-sample-integer')
+
+console.log(sodium.crypto_stream_chacha20_xor_update)
 
 module.exports = function (key, nonce) {
-  var instance = sodium.crypto_stream_chacha20_xor_instance(nonce, key)
+  var state = Buffer.alloc(sodium.crypto_stream_chacha20_xor_STATEBYTES)
+  sodium.crypto_stream_chacha20_xor_init(state, nonce, key)
+  return create(sodium.crypto_stream_chacha20_xor_update, state, key, nonce)
+}
 
+module.exports.xchacha = function (key, nonce) {
+  var state = Buffer.alloc(sodium.crypto_stream_xchacha20_xor_STATEBYTES)
+  sodium.crypto_stream_xchacha20_xor_init(state, nonce, key)
+  return create(sodium.crypto_stream_xchacha20_xor_update, state, key, nonce)
+}
+
+module.exports.salsa = function (key, nonce) {
+  var state = Buffer.alloc(sodium.crypto_stream_salsa20_xor_STATEBYTES)
+  sodium.crypto_stream_salsa20_xor_init(state, nonce, key)
+  return create(sodium.crypto_stream_salsa20_xor_update, state, key, nonce)
+}
+
+module.exports.xsalsa = function (key, nonce) {
+  var state = Buffer.alloc(sodium.crypto_stream_xsalsa20_xor_STATEBYTES)
+  sodium.crypto_stream_xsalsa20_xor_init(state, nonce, key)
+  return create(sodium.crypto_stream_xsalsa20_xor_update, state, key, nonce)
+}
+
+function create (method, state, key, nonce) {
   function next (bytes, buf) {
     if (buf == null) buf = Buffer.alloc(bytes)
     else {
@@ -15,7 +41,7 @@ module.exports = function (key, nonce) {
     }
 
     // Can be optimised if we export the proper function from sodium
-    instance.update(buf, buf)
+    method(state, buf, buf)
     next.bytes += bytes
     next.trails++
 
@@ -34,5 +60,14 @@ module.exports = function (key, nonce) {
   return next
 }
 
-module.exports.NONCEBYTES = sodium.crypto_stream_NONCEBYTES
-module.exports.KEYBYTES = sodium.crypto_stream_KEYBYTES
+module.exports.NONCEBYTES = sodium.crypto_stream_chacha20_NONCEBYTES
+module.exports.KEYBYTES = sodium.crypto_stream_chacha20_KEYBYTES
+
+module.exports.xchacha.NONCEBYTES = sodium.crypto_stream_xchacha20_NONCEBYTES
+module.exports.xchacha.KEYBYTES = sodium.crypto_stream_xchacha20_KEYBYTES
+
+module.exports.salsa.NONCEBYTES = sodium.crypto_stream_salsa20_NONCEBYTES
+module.exports.salsa.KEYBYTES = sodium.crypto_stream_salsa20_KEYBYTES
+
+module.exports.xsalsa.NONCEBYTES = sodium.crypto_stream_xsalsa20_NONCEBYTES
+module.exports.xsalsa.KEYBYTES = sodium.crypto_stream_xsalsa20_KEYBYTES
