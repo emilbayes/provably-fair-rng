@@ -28,6 +28,8 @@ module.exports = function (key, nonce) {
   next.double = double.bind(null, next)
   next.shuffle = shuffle.bind(null, next)
   next.sample = sample.bind(null, next)
+  next.weighted = weighted.bind(null, next)
+  next.weightedInteger = weightedInteger.bind(null, next)
 
   return next
 }

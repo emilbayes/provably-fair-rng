@@ -67,6 +67,16 @@ Unbiased shuffle (Fisher-Yates/Knuth) of `arr`. Note that this mutates `arr` and
 returns it (for convenience). Uses rejection sampling multiple times so the
 above note from `rng.uniform` applies
 
+### `const idx = rng.weighted(weights)`
+
+Samples an index from `weights`, which are decimal proportions.
+Samples a single double from `rng.double` above
+
+### `const idx = rng.weightedIntegers(weights)`
+
+Samples an index from `weights`, which are integer proportions.
+Uses rejection sampling once so the above note from `rng.uniform` applies
+
 ## Install
 
 ```sh
