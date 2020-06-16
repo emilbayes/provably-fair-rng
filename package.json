@@ -5,10 +5,10 @@
   "main": "index.js",
   "dependencies": {
     "nanoassert": "^2.0.0",
-    "sodium-native": "^3.1.1",
-    "sodium-universal": "^2.0.0"
+    "sodium-native": "^3.1.1"
   },
   "devDependencies": {
+    "hash-chain": "^2.0.1",
     "standard": "^14.3.1",
     "tape": "^4.12.1"
   },
