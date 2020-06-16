@@ -1,6 +1,6 @@
 {
   "name": "provably-fair-rng",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A provably fair RNG based on a stream cipher",
   "main": "index.js",
   "dependencies": {
