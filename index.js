@@ -6,8 +6,6 @@ const sample = require('./unbiased-sample')
 const weighted = require('./unbiased-weighted-sample')
 const weightedInteger = require('./unbiased-weighted-sample-integer')
 
-console.log(sodium.crypto_stream_chacha20_xor_update)
-
 module.exports = function (key, nonce) {
   var state = Buffer.alloc(sodium.crypto_stream_chacha20_xor_STATEBYTES)
   sodium.crypto_stream_chacha20_xor_init(state, nonce, key)
